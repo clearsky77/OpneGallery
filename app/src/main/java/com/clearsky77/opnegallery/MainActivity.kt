@@ -1,6 +1,7 @@
 package com.clearsky77.opnegallery
 
 import android.Manifest
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
@@ -19,7 +20,12 @@ class MainActivity : AppCompatActivity() {
                 // 권한이 허용 되었을 때. 실행한다.
                 override fun onPermissionGranted() {
                     Toast.makeText(this@MainActivity, "권한 승인됨.", Toast.LENGTH_SHORT).show()
+                    // 갤러리를 연다.
+                    val intent = Intent(Intent.ACTION_PICK)
+                    intent.type = "image/*"
+                    startActivity(intent)
                 }
+
                 // 권한 거절 되었을 때.
                 override fun onPermissionDenied(deniedPermissions: MutableList<String>?) {
                     Toast.makeText(this@MainActivity, "권한 거절됨.", Toast.LENGTH_SHORT).show()
