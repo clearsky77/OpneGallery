@@ -4,6 +4,8 @@ import android.Manifest
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.provider.MediaStore
+import android.util.Log
 import android.widget.Toast
 import com.gun0912.tedpermission.PermissionListener
 import com.gun0912.tedpermission.normal.TedPermission
@@ -22,8 +24,13 @@ class MainActivity : AppCompatActivity() {
                     Toast.makeText(this@MainActivity, "권한 승인됨.", Toast.LENGTH_SHORT).show()
                     // 갤러리를 연다.
                     val intent = Intent(Intent.ACTION_PICK)
+                    intent.data = MediaStore.Images.Media.EXTERNAL_CONTENT_URI
                     intent.type = "image/*"
-                    startActivity(intent)
+//                    startActivityForResult(intent, REQUEST_CODE) <- 이와 같이 되지 않아 아래처럼 변경...
+                    startActivityForResult(intent, CONTEXT_INCLUDE_CODE)
+
+                    Log.d("MainActivity", CONTEXT_INCLUDE_CODE.toString()) //
+
                 }
 
                 // 권한 거절 되었을 때.
