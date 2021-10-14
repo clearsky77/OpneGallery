@@ -30,11 +30,6 @@ class MainActivity : AppCompatActivity() {
                     val intent = Intent(Intent.ACTION_PICK)
                     intent.data = MediaStore.Images.Media.EXTERNAL_CONTENT_URI
                     intent.type = "image/*"
-
-//                    intent.type = MediaStore.Images.Media.CONTENT_TYPE
-//                    /* intent.type에서 설정한 종류의 데이터를
-//                       MediaStore에서 불러와 목록으로 나영한 후 선택할 수 있는 앱이 실행 */
-
                     startActivityForResult(intent, REQ_STORAGE)
                 }
 
@@ -54,12 +49,14 @@ class MainActivity : AppCompatActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-
         // 만약 갤러리에서 돌아왔다면
         if(requestCode == REQ_STORAGE){
             if(resultCode == RESULT_OK){
-                Log.d("onActivityResult", "갤러리에서 RESULT_OK 받았음")
+                data?.data?.let { uri ->
+                    galleryImg.setImageURI(uri) // xml에 표현해준다.
+                }
             }
         }
     }
+
 }
