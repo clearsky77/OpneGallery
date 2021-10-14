@@ -51,4 +51,15 @@ class MainActivity : AppCompatActivity() {
                 .check()
         }
     }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        // 만약 갤러리에서 돌아왔다면
+        if(requestCode == REQ_STORAGE){
+            if(resultCode == RESULT_OK){
+                Log.d("onActivityResult", "갤러리에서 RESULT_OK 받았음")
+            }
+        }
+    }
 }
