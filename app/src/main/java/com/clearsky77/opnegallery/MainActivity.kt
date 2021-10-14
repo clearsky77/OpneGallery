@@ -12,6 +12,9 @@ import com.gun0912.tedpermission.normal.TedPermission
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
+
+    val REQ_STORAGE = 102
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -19,6 +22,7 @@ class MainActivity : AppCompatActivity() {
         openGalleyBtn.setOnClickListener {
 //          권한 승인 여부에 따른 규칙 정리.
             val pl = object : PermissionListener {
+
                 // 권한이 허용 되었을 때. 실행한다.
                 override fun onPermissionGranted() {
                     Toast.makeText(this@MainActivity, "권한 승인됨.", Toast.LENGTH_SHORT).show()
@@ -26,11 +30,12 @@ class MainActivity : AppCompatActivity() {
                     val intent = Intent(Intent.ACTION_PICK)
                     intent.data = MediaStore.Images.Media.EXTERNAL_CONTENT_URI
                     intent.type = "image/*"
-//                    startActivityForResult(intent, REQUEST_CODE) <- 이와 같이 되지 않아 아래처럼 변경...
-                    startActivityForResult(intent, CONTEXT_INCLUDE_CODE)
 
-                    Log.d("MainActivity", CONTEXT_INCLUDE_CODE.toString()) //
+//                    intent.type = MediaStore.Images.Media.CONTENT_TYPE
+//                    /* intent.type에서 설정한 종류의 데이터를
+//                       MediaStore에서 불러와 목록으로 나영한 후 선택할 수 있는 앱이 실행 */
 
+                    startActivityForResult(intent, REQ_STORAGE)
                 }
 
                 // 권한 거절 되었을 때.
